@@ -6,11 +6,12 @@ public class SodOrder
 {
 	private final double TAX_RATE = 0.075;
 	private final int DISCOUNT_ARRAY_SIZE = 3;
-	private final int RECEIPT_FIELDS = 5;
+	private final int ITEM_SELECT_FIELDS = 4;
+	private final int RECEIPT_FIELDS = 6;
 	private final int MAX_RECEIPT_ITEMS = 100;
 	private final int RESET_VALUE = 0;
 	private String howMany = "";
-	private String[] itemSelection;
+	private String[] itemSelection = new String[ITEM_SELECT_FIELDS];
 	private String[][] orderReceipt = new String[MAX_RECEIPT_ITEMS][RECEIPT_FIELDS];
 	private int receiptItemCount = 0;
 	private double discountRateSelection = 0.0;
@@ -43,12 +44,11 @@ public class SodOrder
 	
 	public void setItemSelection(int borrowedItemIndex, String[][] borrowedItemRecords)	//set item details per user selection
 	{	
-		itemSelection = new String[borrowedItemRecords[0].length];
-	
-		for(int localRecordField = 0; localRecordField < borrowedItemRecords[0].length; localRecordField++)
+		for(int localRecordField = 0; localRecordField < borrowedItemRecords[0].length; localRecordField++)	//load selected record into temporary array
 		{
 			itemSelection[localRecordField] = borrowedItemRecords[borrowedItemIndex][localRecordField];
 		}
+		itemSelection[3] = String.valueOf(borrowedItemIndex);	//save index of selected item to use for inventory reduction later
 	}
 	
 	public void setAddToOrderReceipt()
@@ -58,8 +58,8 @@ public class SodOrder
 			orderReceipt[receiptItemCount][localField] = itemSelection[localField];
 		}
 		
-		orderReceipt[receiptItemCount][3] = howMany;
-		orderReceipt[receiptItemCount][4] = String.valueOf(getTotalItemCost());
+		orderReceipt[receiptItemCount][4] = howMany;
+		orderReceipt[receiptItemCount][5] = String.valueOf(getTotalItemCost()); 
 		receiptItemCount++;
 	}
 	
@@ -136,7 +136,7 @@ public class SodOrder
 		
 		for(int localIndex = 0; localIndex < receiptItemCount; localIndex++)
 		{
-			localSubTotal += Double.parseDouble(orderReceipt[localIndex][4]);
+			localSubTotal += Double.parseDouble(orderReceipt[localIndex][5]);
 		}
 		
 		return localSubTotal;
@@ -145,7 +145,7 @@ public class SodOrder
 	//Return tax amount
 	public double getTaxAmount()
 	{
-		return (TAX_RATE * getSubTotal());
+		return Math.round((TAX_RATE * getSubTotal()) * 100) / 100D;
 	}//End Return tax amount
 	
 	//Return total cost of order

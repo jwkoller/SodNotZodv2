@@ -89,24 +89,28 @@ public class MainClass
 					{							
 						currentInventory.setItemIndex(validateItemSearch(input));	//binary search loaded inventory array for desired item
 							
-						while (currentInventory.getitemIndex() < 0)	//while item not found
+						if(currentInventory.getitemIndex() < 0)	//while item not found
 						{
 							displayItemNotFound();
-							currentInventory.setItemIndex(validateItemSearch(input));
-						}
-							
-						newSodOrder.setItemSelection(currentInventory.getitemIndex(), currentInventory.getItemRecords());	//load item record from inventory into temp array
-
-						newSodOrder.setHowMany(validateHowMany(input, newSodOrder.getItemSelection()));	//confirm how many of item customer wants
-							
-						if (newSodOrder.getInstockFlag(currentInventory.getItemRecords(), currentInventory.getitemIndex()) == true)	//check if enough are in-stock
-						{	
-							newSodOrder.setAddToOrderReceipt();
+//							currentInventory.setItemIndex(validateItemSearch(input));
 						}
 						else
 						{
-							displayOutOfStock(newSodOrder.getItemSelection());
+							newSodOrder.setItemSelection(currentInventory.getitemIndex(), currentInventory.getItemRecords());	//load item record from inventory into temp array
+
+							newSodOrder.setHowMany(validateHowMany(input, newSodOrder.getItemSelection()));	//confirm how many of item customer wants
+								
+							if (newSodOrder.getInstockFlag(currentInventory.getItemRecords(), currentInventory.getitemIndex()) == true)	//check if enough are in-stock
+							{	
+								newSodOrder.setAddToOrderReceipt();
+							}
+							else
+							{
+								displayOutOfStock(newSodOrder.getItemSelection());
+							}
 						}
+							
+
 						
 						menuSelect = validateOrderMenu(input);	//modify LCV
 					}
@@ -395,8 +399,8 @@ public class MainClass
 		System.out.println("\n____________________________________________________________");
 		for(int localIndex = 0; localIndex < borrowedReceiptItemCount; localIndex++)
 		{
-			System.out.printf("\n%-16s%6s%10s%8s%12s%8.2f",  borrowedOrderReceipt[localIndex][1], borrowedOrderReceipt[localIndex][3], "$",  
-					borrowedOrderReceipt[localIndex][2], "$", Double.parseDouble(borrowedOrderReceipt[localIndex][4]));
+			System.out.printf("\n%-16s%6s%10s%8s%12s%8.2f",  borrowedOrderReceipt[localIndex][1], borrowedOrderReceipt[localIndex][4], "$",  
+					borrowedOrderReceipt[localIndex][2], "$", Double.parseDouble(borrowedOrderReceipt[localIndex][5]));
 		}
 		System.out.println();
 		System.out.printf("\n%47s%5s%8.2f", "Subtotal", "$", borrowedSubTotal);
@@ -419,8 +423,8 @@ public class MainClass
 		System.out.println("\n____________________________________________________________");
 		for(int localIndex = 0; localIndex < borrowedReceiptItemCount; localIndex++)
 		{
-			System.out.printf("\n%-16s%6s%10s%8s%12s%8.2f",  borrowedOrderReceipt[localIndex][1], borrowedOrderReceipt[localIndex][3], "$",  
-					borrowedOrderReceipt[localIndex][2], "$", Double.parseDouble(borrowedOrderReceipt[localIndex][4]));
+			System.out.printf("\n%-16s%6s%10s%8s%12s%8.2f",  borrowedOrderReceipt[localIndex][1], borrowedOrderReceipt[localIndex][4], "$",  
+					borrowedOrderReceipt[localIndex][2], "$", Double.parseDouble(borrowedOrderReceipt[localIndex][5]));
 		}
 		System.out.println();
 		System.out.printf("\n%47s%5s%8.2f", "Subtotal", "$", borrowedSubTotal);

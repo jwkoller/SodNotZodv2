@@ -21,32 +21,20 @@ public class Inventory
 	private int itemIndex = 0;
 	private int itemRecordCount = 0;
 	
-	public void setReduceStock(String[][] borrowedOrderReceipt, int borrowedReceiptItemCount)	//reduce inventory in 2D array
-	{
-		int localID = 0;
-		
-		for(int localSold = 0; localSold < borrowedReceiptItemCount; localSold++)
+	public void setReduceStock(String[][] borrowedOrderReceipt, int borrowedReceiptItemCount)	//reduce inventory in 2D array using saved index locations of selected items
+	{	
+		for(int localIndex = 0; localIndex < borrowedReceiptItemCount; localIndex++)
 		{
-			while(localID < itemRecordCount)
-			{
-				if(borrowedOrderReceipt[localSold][0].equals(itemRecords[localID][0]))
-				{
-					itemRecords[localID][3] = String.valueOf(Integer.parseInt(itemRecords[localID][3]) - Integer.parseInt(borrowedOrderReceipt[localSold][3]));
-					setInventorySoldCounts(localID, Integer.parseInt(borrowedOrderReceipt[localSold][3]));
-					localID = itemRecordCount;
-				}
-				else
-				{
-					localID++;
-				}
-			}
-			localID = 0;
+			itemRecords[Integer.parseInt(borrowedOrderReceipt[localIndex][3])][3] = String.valueOf(Integer.parseInt(itemRecords[Integer.parseInt(
+					borrowedOrderReceipt[localIndex][3])][3]) - Integer.parseInt(borrowedOrderReceipt[localIndex][4]));
+			
+			setInventorySoldCounts(Integer.parseInt(borrowedOrderReceipt[localIndex][3]), Integer.parseInt(borrowedOrderReceipt[localIndex][4]));
 		}
 	}
 	
-	public void setInventorySoldCounts(int borrowedLocalID, int borrowedHowMany)
+	public void setInventorySoldCounts(int borrowedIndex, int borrowedHowMany)
 	{
-		inventorySoldCounts[borrowedLocalID] += borrowedHowMany;
+		inventorySoldCounts[borrowedIndex] += borrowedHowMany;
 	}
 	
 	public void setLoadItemsFromFile(String borrowedFileName)	//load file from user input

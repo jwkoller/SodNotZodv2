@@ -27,8 +27,8 @@ public class OrderWriter
 			for(int localIndex = 0; localIndex < borrowedItemCount; localIndex++)
 			{
 				newRecord.printf("%d\t%s\t%.2f\t%d\t%.2f\r\n", Integer.parseInt(borrowedOrderReceipt[localIndex][0]), borrowedOrderReceipt[localIndex][1],
-						Double.parseDouble(borrowedOrderReceipt[localIndex][2]), Integer.parseInt(borrowedOrderReceipt[localIndex][3]),
-								Double.parseDouble(borrowedOrderReceipt[localIndex][4]));
+						Double.parseDouble(borrowedOrderReceipt[localIndex][2]), Integer.parseInt(borrowedOrderReceipt[localIndex][4]),
+								Double.parseDouble(borrowedOrderReceipt[localIndex][5]));
 				masterRecordCount++;
 			}
 			newRecord.close();
