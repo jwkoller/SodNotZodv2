@@ -92,7 +92,6 @@ public class MainClass
 						if(currentInventory.getitemIndex() < 0)	//while item not found
 						{
 							displayItemNotFound();
-//							currentInventory.setItemIndex(validateItemSearch(input));
 						}
 						else
 						{
