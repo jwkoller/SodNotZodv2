@@ -3,4 +3,4 @@ A significantly updated and expanded version of a basic retail purchasing progra
 
 An inventory list file is provided ("inventoryfile.dat") that needs to be loaded within the program at prompt. It's a simple text file so feel free to add additional records to it should you want. Has four fields (ID#, Name, Price, Qty-in-inventory) with tab deliminators.
 
-The workspace file path the program is in needs to be added to a class constant in the OrderWriter class if you don't want to have to manually delete the file after each run-through of the program.
+The workspace file path the program is in needs to be added to a class constant in the OrderWriter class if you don't want to have to manually delete the file after each run-through of the program (essentially a daily sales list that would start fresh with each run).
